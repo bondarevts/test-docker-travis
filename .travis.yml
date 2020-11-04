@@ -1,0 +1,6 @@
+sudo: required
+services: 
+    - docker
+script:
+    - docker build -t $DOCKER_USERNAME/node .
+    - docker images $DOCKER_USERNAME/node
