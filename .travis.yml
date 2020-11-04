@@ -1,6 +1,17 @@
 sudo: required
+
 services: 
     - docker
+
 script:
-    - docker build -t $DOCKER_USERNAME/node .
-    - docker images $DOCKER_USERNAME/node
+    - docker build -t $DOCKERHUB_USERNAME/node .
+    - docker images $DOCKERHUB_USERNAME/node
+
+before_deploy: 
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+
+deploy:
+    provider: script
+    script: docker push $DOCKERHUB_USERNAME/node
+    on:
+        branch: main
